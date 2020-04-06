@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style>#div1{
+				position: relative;
+				width:200px;
+				height:200px;
+				background:aqua;
+			}
+		span{
+			
+			position: absolute;
+			bottom: 0;
+			
+			
+		}
+		
+		</style>
+	<script type="application/javascript">
+			window.onload=function(){
+				var odiv = document.getElementById("div1");
+				var ospan = document.getElementsByTagName("span")[0];
+				
+				odiv.onmousemove = function(e){
+					var x = e.clientX;
+					var y = e.clientY;
+					ospan.innerHTML = x + "," + y +"px";
+				}
+				odiv.onmouseout = function(){
+					
+					ospan.innerHTML = "";
+					
+				}
+				
+				
+			}
+	</script>
+</head>
+
+<body>
+	<div id="div1">
+		<span>12a</span>
+	</div>
+</body>
+</html>

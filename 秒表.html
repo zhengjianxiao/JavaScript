@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	
+	<script type="text/javascript">
+	
+	function $(id){
+		
+		return document.getElementById(id);
+		
+	}
+		window.onload=function(){
+			
+			var count = 0;
+			var timer = null;
+			$("btn").onclick=function(){
+				
+			timer = setInterval(function(){
+				
+				count++;
+				$("seconds").innerHTML=double(count % 60);
+				$("minutes").innerHTML=double(parseInt(count/60) % 60);
+				$("hours").innerHTML=double(parseInt(count /3600));
+				
+			},100);
+				
+			}
+			$("zt").onclick=function(){
+				
+				clearInterval(timer);
+			}
+			$("stop").onclick=function(){
+				
+				clearInterval(timer);
+				count = 0;
+				$("seconds").innerHTML = "00";
+				$("minutes").innerHTML = "00";
+				$("hours").innerHTML = "00";
+				
+			}
+			
+			
+			
+		}
+	
+		
+		function double(num){
+			
+			if(num <10){
+				return "0" + num;
+				
+			}else{
+				
+				return num;
+			}
+			
+		}
+	
+	</script>
+	
+</head>
+
+<body>
+	<div>
+	    <span id="hours">00</span>
+		<span id="minutes">00</span>
+		<span id="seconds">00</span>
+	
+	</div>
+	<div>
+	    <input type="button" value="按钮" id="btn"/>
+		<input type="button" value="暂停" id="zt"/>
+		<input type="button" value="结束" id="stop"/>
+	</div>
+	
+</body>
+</html>
