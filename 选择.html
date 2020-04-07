@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>你爱好的运动是？</div>
+    <div>
+        <input type="checkbox" id="checkall">
+        全选/全不选
+    </div>
+    <div>
+        <span><input type="checkbox" name="item" id="footballs" />足球</span>
+        <span><input type="checkbox" name="item" id="basketballs" />篮球</span>
+        <span><input type="checkbox" name="item" id="fellballs" />羽毛球</span>
+        <span><input type="checkbox" name="item" id="pinpanballs" />乒乓球</span>
+    </div>
+    <div>
+        <span><input type="button" value="全选" id="checkalle" /></span>
+        <span><input type="button" value="全不选" id="checkno" /></span>
+        <span><input type="button" value="反选" id="checkfan" /></span>
+        <span><input type="submit" value="提交" id="submit" /></span>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    function $(id) {
+        var result = document.getElementById(id);
+        return result;
+    }
+    var items = document.getElementsByName("item");
+    var i;
+    for (i = 0; i < items.length; i++) {
+        items[i].onclick = function () {
+            checkall.checked = true;
+            for (var j = 0; j < items.length; j++) {
+                if (!items[j].checked) {
+                    checkall.checked = false;
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+    var checkall = $("checkall");
+    checkall.onclick = function () {
+        for (i = 0; i < items.length; i++) {
+            items[i].checked = this.checked;
+        }
+    }
+
+    var checkalle = $("checkalle");
+    checkalle.onclick = function () {
+        for (i = 0; i < items.length; i++) {
+            items[i].checked = true;
+        }
+        checkall.checked = true;
+    }
+
+    var checkno = $("checkno");
+    checkno.onclick = function () {
+        for (i = 0; i < items.length; i++) {
+            items[i].checked = false;
+        }
+        checkall.checked = false;
+
+    }
+
+    var checkfan = $("checkfan");
+    checkfan.onclick = function () {
+        for (i = 0; i < items.length; i++) {
+            items[i].checked = !items[i].checked;
+            if (!items[i].checked) {
+                checkall.checked = false;
+            }
+        }
+        checkall.checked = false;
+    }
+    var submit = $("submit");
+    submit.onclick = function () {
+
+        for (i = 0; i < items.length; i++) {
+            if (items[i].checked) {
+                alert(items[i].parentNode.lastChild.nodeValue);
+            }
+        }
+
+    }
+</script>
+
+</html>
