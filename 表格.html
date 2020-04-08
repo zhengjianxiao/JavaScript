@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table1 {
+            padding: 0;
+            margin: 0 auto;
+            overflow: hidden;
+            border: red solid 1px;
+            border-collapse: collapse;
+        }
+
+        tr,
+        td {
+            margin: 10px;
+            border: 1px solid;
+            background-color: rgba(145, 161, 155, 0.2);
+            width: 80px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .tr1,
+        .tr1 td {
+            margin: 10px;
+            border: 1px solid;
+            background-color: rgba(145, 161, 155, 0.2);
+            width: 80px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .th,
+        .th td {
+            font-weight: bold;
+            margin: 10px;
+            border: 1px solid;
+            background-color: rgba(145, 161, 155, 0.2);
+            width: 80px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .form {
+            width: 300px;
+            height: 150px;
+            margin: 50px auto;
+            background-color: lightgrey;
+        }
+
+        .form td,
+        .form tr {
+            border: 0;
+            background-color: lightgrey;
+        }
+
+        .form-div {
+            text-align: center;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 16;
+
+        }
+
+        .form-label {
+            width: 150px;
+            text-align: left;
+
+        }
+
+        #text1,
+        #text2,
+        #text3 {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="table1" id="table1">
+        <tr class="th">
+            <td>姓名</td>
+            <td>电子邮件</td>
+            <td>工资</td>
+            <td>删除</td>
+
+        </tr>
+
+
+
+        <tr class="tr1">
+            <td>Tom</td>
+            <td>123@163.com</td>
+            <td>10000</td>
+            <td><a href="javascript: ;" id="delete" value="delete">Delete</a></td>
+        </tr>
+        <tr class="tr1">
+            <td>Marry</td>
+            <td>456@qq.com</td>
+            <td>9000</td>
+            <td><a href="javascript: ;" id="delete" value="delete">Delete</a></td>
+        </tr>
+        <tr class="tr1">
+            <td>jake</td>
+            <td>789@163.com</td>
+            <td>7000</td>
+            <td><a href="javascript: ;" id="delete" value="delete">Delete</a></td>
+        </tr>
+
+    </table>
+    <div class="form">
+        <div class="form-div">添加新员工</div>
+        <table class="table2">
+
+            <tr class="tr2">
+                <td class="form-label">姓名：</td>
+                <td><input type="text" id="text1"></td>
+            </tr>
+            <tr class="tr2">
+                <td class="form-label">电子邮件：</td>
+                <td><input type="text" id="text2"></td>
+            </tr>
+            <tr class="tr2">
+                <td class="form-label">工资：</td>
+                <td><input type="text" id="text3"></td>
+            </tr>
+
+        </table>
+        <div class="form-div"><input type="submit" value="提交" id="submit"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    function $(id) {
+        var result = document.getElementById(id);
+        return result;
+    }
+
+    function dele() {
+        var tr = this.parentNode.parentNode;
+        var name = tr.getElementsByTagName("td")[0].innerHTML;
+        var cofir = confirm("确定删除" + name + "?");
+        if (cofir) {
+            tr.parentNode.removeChild(tr);
+        }
+    }
+    var delet = document.getElementsByTagName("a");
+    for (var i = 0; i < delet.length; i++) {
+        delet[i].onclick = dele;
+
+    }
+
+
+    var submit = $("submit");
+    submit.onclick = function () {
+
+
+        var name = $("text1").value;
+        var email = $("text2").value;
+        var gonzi = $("text3").value;
+        var addtr = document.createElement("tr");
+        addtr.innerHTML = "<td>"+name+"</td>" +
+                          "<td>"+email+"</td>" +
+                          "<td>"+gonzi+"</td>" +
+                          "<td><a href='javascript: ;'>Delete</a></td>";
+        var a2 = addtr.getElementsByTagName("a")[0];
+        a2.onclick = dele ;
+  //方法二     
+        // var addtd1 = document.createElement("td");
+        // var addtd2 = document.createElement("td");
+        // var addtd3 = document.createElement("td");
+        // var addtd4 = document.createElement("td");
+        // addtd1.innerHTML = text1.value;
+        // addtd2.innerHTML = text2.value;
+        // addtd3.innerHTML = text3.value;
+        // var a1 = document.createElement("a");
+        // a1.innerHTML = "Delete";
+        // a1.href = "javascript: ;";
+         // addtr.appendChild(addtd1);
+        // addtr.appendChild(addtd2);
+        // addtr.appendChild(addtd3);
+        // addtr.appendChild(addtd4);
+        //addtd4.appendChild(a1);
+        
+        //a1.onclick = dele;
+        
+
+        var table1 = $("table1");
+        //添加到tbody里面
+        var tbody1 = table1.getElementsByTagName("tbody")[0];
+        tbody1.appendChild(addtr);
+    }
+</script>
+
+</html>
