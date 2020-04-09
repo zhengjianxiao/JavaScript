@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: chartreuse;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var div1 = document.getElementById('div1');
+            var key = 0;
+            var speed = 10;
+
+            var timer = setInterval(function () {
+                //clearInterval(timer);
+                switch (key) {
+                    case 37:
+                        div1.style.left = div1.offsetLeft - speed + 'px';
+                        break;
+                    case 38:
+                        div1.style.top = div1.offsetTop - speed + 'px';
+                        break;
+                    case 39:
+                        div1.style.left = div1.offsetLeft + speed + 'px';
+                        break;
+                    case 40:
+                        div1.style.top = div1.offsetTop + speed + 'px';
+                        break;
+
+                };
+
+            }, 10);
+
+            document.onkeydown = function (event) {
+                event = event || window.event;
+                // console.log(event.keyCode);
+
+                if (event.ctrlKey) {
+                    speed = 500;
+                } else {
+                    speed = 10;
+                };
+
+                key = event.keyCode;
+
+
+            };
+            document.onkeyup = function () {
+                key = 0;
+            //不用清除定时器，因为定时器不是在键盘按下的时候触发的
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+</body>
+
+</html>

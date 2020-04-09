@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: darkgoldenrod;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var div1 = document.getElementById('div1');
+            var bton = document.getElementById('bton');
+            var timer;
+            var oldvalue;
+            var newvalue;
+
+            bton.onclick = function () {
+               timer = setInterval(function () {
+                    oldvalue = parseInt(getstyle(div1 , "left"));
+                    newvalue = oldvalue + 10;
+                    if(newvalue > 800){
+                        newvalue = 800; //当newvalue没有刚刚好取到800的时候，让他等于800，可以让他刚刚好停到指定位置
+                    }
+                    div1.style.left = newvalue + 'px';
+                    if( newvalue == 800){
+                        clearInterval( timer);
+                    }
+                },10);
+            }
+        }
+        //获取任意对象的属性
+        function getstyle(obj , name) {
+            if(window.getComputedStyle){
+                return getComputedStyle(obj , null)[name];//其他浏览器
+            }else{
+                return currentStyle(obj , name);//IE
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <button id="bton">开始</button>
+    <br/>
+    <br/>
+    <div id="div1"></div>
+   
+    
+</body>
+
+</html>

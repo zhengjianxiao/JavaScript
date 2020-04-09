@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            position: relative;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var div1 = document.getElementById("div1");
+            div1.onmousewheel = function (event) {
+                event = event || window.event; //兼容IE8
+                if (event.wheelDelta > 0 || event.detail < 0) {
+                    div1.style.height = div1.clientHeight - 10 + "px";
+                } else {
+                    div1.style.height = div1.clientHeight + 10 + "px";
+                }
+                //取消浏览器的默认滚轮
+                event.preventDefault && event.preventDefault();
+                return false;
+            };
+            bind(div1, "DOMMouseScroll", div1.onmousewheel);
+            
+            //兼容各个浏览器，下面两个方法可以为一个对象同时绑定多个事件   
+            function bind(obj, eventstr, callback) {
+
+                //obj.addEventListener和addEventListener的区别
+                // IE没有addEventListener方法，如果是直接if(addEventListener)说明addEventListener是变量，会报错
+                //而如果是 if(obj.addEventListener)则说明是属性，找不到只会undefind,不会报错
+
+                if (obj.addEventListener) { //不要on
+                    return obj.addEventListener(eventstr, callback, false);
+                } else {
+                    return obj.attachEvent("on" + eventstr, function () {
+                        //指定this是obj
+                        callback.call(obj);
+                    });
+                };
+            };
+
+        };
+    </script>
+</head>
+
+<body style="height: 10000px;">
+    <div id="div1"></div>
+</body>
+
+</html>
