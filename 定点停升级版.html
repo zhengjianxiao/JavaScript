@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: darkgoldenrod;
+            position: absolute;
+
+            left: 0;
+        }
+        #div2{
+            width: 100px;
+            height: 100px;
+            background-color:darkgreen;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var div1 = document.getElementById('div1');
+            var div2 = document.getElementById('div2');
+            var bton = document.getElementById('bton');
+            var bton2 = document.getElementById('bton2');
+            bton.onclick = function () {
+                move(div1, "left" , 800 , 5 );
+        };
+
+            bton2.onclick = function () {
+             move (div1, "left" , 0 , 5 ) ;  
+        };
+        bton3.onclick = function () {
+            move (div2, "left" , 800 , 3 ) ;  
+        };
+        down.onclick = function () {
+            move (div2, "top" , 800 , 3 ) ;  
+        };
+
+        up.onclick = function () {
+            move (div2, "top" , 0 , 3 ) ;  
+        };
+        long.onclick = function () {
+            move (div2, "width" , 800 , 3 ,function(){
+                move (div2, "height" , 500 , 3 ,function(){
+                    move (div2, "height" , 100 , 3 ,function(){
+                        move (div2, "width" , 100 , 3 ,function(){
+                          move (div2, "top" , 0 , 3 );
+                        }); 
+                    });
+                });
+            }) ;  
+        };
+        short.onclick = function () {
+            move (div2, "width" , 0 , 3 ) ;  
+        };
+
+
+    };
+            
+        
+        //var timer;
+        function move(obj , name , target , speed , callback){
+            clearInterval( obj.timer);
+            var current = parseInt(getstyle(obj , name));
+            if(current > target){
+                   speed = -speed; 
+               };
+            obj.timer = setInterval(function () {
+               
+                var oldvalue = parseInt(getstyle(obj , name));
+                var newvalue = oldvalue +speed;
+                    if(newvalue > target && speed > 0 || newvalue < target && speed < 0  ) {
+                        newvalue = target; //当newvalue没有刚刚好取到800的时候，让他等于800，可以让他刚刚好停到指定位置
+                    };
+                    obj.style[name] = newvalue + 'px';
+                    if( newvalue == target){
+                        clearInterval( obj.timer);
+                        callback && callback();
+                    };
+                }
+                ,10);
+                   
+        };
+
+        //获取任意对象的属性
+        function getstyle(obj , name) {
+            if(window.getComputedStyle){
+                return getComputedStyle(obj , null)[name];//其他浏览器
+            }else{
+                return currentStyle(obj , name);//IE
+            };
+        };
+    </script>
+
+</head>
+
+<body>
+    <div div3 style="position: absolute; left: 800px; widows: 0; height: 1000px; border-left: 1px solid; display: inline-block;"></div>
+    <button id="bton">向右</button>
+    <button id="bton2">向左</button>
+    <button id="bton3"> 乌龟</button>
+    <button id="down">向下</button>
+    <button id="up">向上</button>
+    <button id="long">变长</button>
+    <button id="short">变短</button>
+    
+    <br/>
+    <br/>
+    <div id="div1"></div>
+    <br><br><br><br><br><br><br><br>
+    <div id = "div2"></div>
+   
+    
+</body>
+
+</html>
