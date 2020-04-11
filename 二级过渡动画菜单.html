@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        #div1 {
+            overflow: hidden;
+            text-align: center;
+            background-color: rgb(166, 214, 104);
+
+            padding: 0px;
+        }
+
+        .close {
+            height: 25px;
+        }
+
+        #span1 {
+            height: 25px;
+            background-color: rgb(166, 214, 104);
+            text-align: center;
+            color: black;
+
+        }
+
+        #div2 {
+            height: 100px;
+            background-color: rgb(78, 168, 209);
+
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var span1 = document.getElementsByTagName("span");
+           
+            var div1 = document.querySelectorAll("#div1");
+           var open = span1[0].parentNode;
+            for(var i = 0; i < span1.length ; i++) {
+               
+                span1[i].onclick = function() {
+
+                   var parent = this.parentNode;
+                   
+                   action(parent);
+                    if(open != parent && !searchclass(open , "close" )){
+                        //taggertclass(open , "close");
+                        action(open);
+
+                    }
+                    open = parent;
+
+                };
+
+            };
+
+
+        };
+
+        function action(obj) { 
+            var begin = obj.offsetHeight;
+                    taggertclass(obj , "close");
+                    var end = obj.offsetHeight;
+                    obj.style.height = begin + "px";
+                    move(obj , "height" , end , 20 , function() {
+                        obj.style.height = "";
+                    });
+         };
+
+        function move(obj , name , target , speed , callback){
+            clearInterval( obj.timer);
+            var current = parseInt(getstyle(obj , name));
+            if(current > target){
+                   speed = -speed; 
+               };
+            obj.timer = setInterval(function () {
+               
+                var oldvalue = parseInt(getstyle(obj , name));
+                var newvalue = oldvalue +speed;
+                    if(newvalue > target && speed > 0 || newvalue < target && speed < 0  ) {
+                        newvalue = target; //当newvalue没有刚刚好取到800的时候，让他等于800，可以让他刚刚好停到指定位置
+                    };
+                    obj.style[name] = newvalue + 'px';
+                    if( newvalue == target){
+                        clearInterval( obj.timer);
+                        callback && callback();
+                    };
+                }
+                ,100);
+                   
+        };
+
+        //获取任意对象的属性
+        function getstyle(obj , name) {
+            if(window.getComputedStyle){
+                return getComputedStyle(obj , null)[name];//其他浏览器
+            }else{
+                return currentStyle(obj , name);//IE
+            };
+        };
+
+
+
+        function addclass(obj , cn ) {
+        if(!searchclass(obj , cn)){    //避免添加多个类
+            obj.className += " " + cn;
+        }
+        
+
+    };
+    function removeclass(obj , cn ) {
+        obj.className = obj.className.replace(cn , "");
+    };
+    function searchclass(obj , cn ) {
+        var reg = new RegExp("\\b" + cn + "\\b");  // \b是单词边界  \\是因为\是转义字符要多一个\
+        return reg.test(obj.className);
+    };
+    function taggertclass(obj , cn){
+        
+        if(searchclass(obj , cn )){
+                  removeclass(obj , cn );
+        }else{
+            addclass(obj , cn);
+        };
+    };
+    </script>
+
+</head>
+
+<body>
+    <div id="main">
+        <div id="div1">
+            <span id="span1">第一章</span>
+            <div id="div2">多个小菜单</div>
+        </div>
+        <div id="div1" class="close">
+            <span id="span1">第二章</span>
+            <div id="div2">多个小菜单</div>
+        </div>
+        <div id="div1" class="close">
+            <span id="span1">第三章</span>
+            <div id="div2">多个小菜单</div>
+        </div>
+        <div id="div1" class="close">
+            <span id="span1">第四章</span>
+            <div id="div2">多个小菜单</div>
+        </div>
+        <div id="div1" class="close">
+            <span id="span1">第五章</span>
+            <div id="div2">多个小菜单</div>
+        </div>
+    </div>
+</body>
+
+</html>

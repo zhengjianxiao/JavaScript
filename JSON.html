@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+
+
+//JSON 格式 ''之间可以放对象和数组     对象里面的属性名必须加""    对象里面的属性值可以是数值 字符串 null 布尔值 对象 数组
+
+    var obj = {name: "mary" , age: "18" , gender : "女"};
+
+    var json = JSON.stringify(obj);
+
+    console.log(json);
+    var json2 = '{"name": "mary" , "age": "18" , "gender" : "女"}';
+
+    console.log(json2.name);
+
+    var obj2 = JSON.parse(json2);
+
+    console.log(obj2.name);
+
+
+    //eval函数可以执行一段字符串类型的js代码，但是性能差，且有安全隐患    要是用户输入一串带有恶意的js代码就有隐患了
+
+    var ent = 'alert("我是eval执行的")';
+
+    eval(ent);
+
+    //要是想解析JSON 则要加括号   因为eval会把{}当成代码块
+
+      var a = eval("(" + json2 + ")");
+      console.log(a.age);
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div1{
+            width:100px;
+            height: 100px;
+            background-color: aquamarine;
+        }
+        .div2{
+            
+            height: 400px;
+            background-color: pink;
+        }
+    </style>
+    <script type="text/javascript">
+    window.onload = function(){
+
+        var div1 = document.getElementById("div1");
+        var bton = document.getElementById("bton");
+
+        bton.onclick = function() {
+          //  div1.className += " " + "div2";   // 通过改变类的名字改变样式，不用再js里面改样式，直接在css里改样式
+                                               //要加一个空格
+
+            taggertclass(div1 , "div2");
+        };
+
+
+    };
+
+    function addclass(obj , cn ) {
+        if(!searchclass(obj , cn)){    //避免添加多个类
+            obj.className += " " + cn;
+        }
+        
+
+    };
+    function removeclass(obj , cn ) {
+        obj.className = obj.className.replace(cn , "");
+    };
+    function searchclass(obj , cn ) {
+        var reg = new RegExp("\\b" + cn + "\\b");  // \b是单词边界  \\是因为\是转义字符要多一个\
+        return reg.test(obj.className);
+    };
+    function taggertclass(obj , cn){
+        
+        if(searchclass(obj , cn )){
+                  removeclass(obj , cn );
+        }else{
+            addclass(obj , cn);
+        };
+    };
+    </script>
+</head>
+<body>
+    <button id="bton">改变样式</button>
+    <br><br>
+    <br><br>
+    <div class="div1 div2" id = "div1"></div>
+</body>
+</html>
